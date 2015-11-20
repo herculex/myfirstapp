@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         arrayList.add("magenta");
         arrayList.add("teal");
         arrayList.add("white");
+        arrayList.add("pink");
         lv = (ListView)findViewById(R.id.list_view);
         StringAdapter adapter = new StringAdapter(MainActivity.this,arrayList,mTouchListener);
         lv.setAdapter(adapter);
