@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">My First App</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_display_message">My Message</string>
+    <string name="action_setting">Setting</string>
+    <string name="action_search">Searching</string>
+    <string name="title_activity_swipe">SwipeActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_list_view_example">ListViewExample</string>
+    <string name="title_activity_my_swipes">MySwipes</string>
+    <string name="title_activity_list_contact">ListContactActivity</string>
+    <string name="title_activity_my_fours">MyFours</string>
+    <string name="title_activity_fourinone">fourinone</string>
+
+</resources>
