@@ -27,10 +27,8 @@ public class StringAdapter extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View v = inflater.inflate(R.layout.list_item, parent, false);
-
         TextView b = (TextView)v.findViewById(R.id.list_tv);
         b.setText(getItem(position));
-
         v.setOnTouchListener(mTouchListener);
         return v;
     }
