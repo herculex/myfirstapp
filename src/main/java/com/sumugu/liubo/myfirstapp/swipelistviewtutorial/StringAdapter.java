@@ -35,5 +35,6 @@ public class StringAdapter extends ArrayAdapter<String> {
         v.setOnTouchListener(mTouchListener);
 
         return v;
+
     }
 }
