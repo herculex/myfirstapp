@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     View.OnTouchListener mTouchListener = new View.OnTouchListener() {
         float mDownX;
-        int mSwipeSlop=-1; //slop （从某物中）溅出
+        int mSwipeSlop=-1; //slop （从某物中）溅出 swipe
         boolean swiped;
 
         @Override
@@ -82,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
             final View v = view;
             if(mSwipeSlop<0)
             {
-                mSwipeSlop = ViewConfiguration.get(MainActivity.this).getScaledTouchSlop();
+                mSwipeSlop = ViewConfiguration.get(MainActivity.this).getScaledTouchSlop(); //默认滑动的最小标准＝24dp
+                Log.d("onTOUCH_sumugu:","mSwipeSlop:"+String.valueOf(mSwipeSlop));
             }
             switch (event.getAction())
             {
@@ -95,21 +96,25 @@ public class MainActivity extends AppCompatActivity {
                     mItemPressed = true;
                     mDownX = event.getX();
                     swiped = false;
+                    Log.d("DOWN_sumug:mDwonX=",String.valueOf(mDownX));
                     break;
                 case MotionEvent.ACTION_CANCEL:
                     v.setTranslationX(0);
                     mItemPressed=false;
+                    Log.d("CANCEL_sumugu:mDownX=",String.valueOf(mDownX));
                     break;
                 case MotionEvent.ACTION_MOVE:
                 {
                     float x = event.getX() + v.getTranslationX();
 
-                    Log.d("MainActivity,sumugu:","x="+String.valueOf(x)+":"+String.valueOf(event.getX())+":"+String.valueOf(v.getTranslationX()));
+                    Log.d("MOVE_sumugu:","x="+String.valueOf(x)+":event.getX="+String.valueOf(event.getX())+";v.translationX="+String.valueOf(v.getTranslationX()));
                     float deltaX = x-mDownX;
                     float deltaAbs = Math.abs(deltaX);  //求绝对值
+                    Log.d("MOVE_sumug:deltaX=",String.valueOf(deltaX));
+
                     if(!mSwiping)
                     {
-                        if(deltaAbs>mSwipeSlop)
+                        if(deltaAbs>mSwipeSlop) //只有swipe超过mSwipeSlop才会认为是滑动
                         {
                             mSwiping = true;
                             lv.requestDisallowInterceptTouchEvent(true);
@@ -121,9 +126,9 @@ public class MainActivity extends AppCompatActivity {
                         //need to make sure the user is both swiping and has not already completed a swipe action
                         v.setTranslationX(x-mDownX);    //moves the view as long as the user is swiping and has not already to swiped
 
-                        if(deltaX>v.getWidth()/3)   //swipe to right
+                        if(deltaX>v.getWidth()/3)   //swipe to right action over 1/3 v's width
                         {
-                            mDownX=x;
+//                            mDownX=x; //其实没用
                             swiped=true;
                             mSwiping=false;
                             mItemPressed=false;
@@ -133,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                             tv.setText("Swiped");
                             return true;
                         }
-                        else if(deltaX<-1*(v.getWidth()/3)) //swipe to left
+                        else if(deltaX<-1*(v.getWidth()/3)) //swipe to left action 1/3 v's width
                         {
                             v.setEnabled(false);//need to disable the view for the animation to run
 
@@ -152,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                                     });
                                 }
                             });
-                            mDownX=x;
+//                            mDownX=x; //其实没用
                             swiped=true;
                             return true;
                         }

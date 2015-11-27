@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.sumugu.liubo.myfirstapp.pulllistview.Main2Activity;
 import com.sumugu.liubo.myfirstapp.swipelistviewtutorial.MainActivity;
 
 
@@ -49,6 +50,10 @@ public class MyActivity extends ActionBarActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+    public void openPullListView(View view){
+        Intent intent = new Intent(this, Main2Activity.class);
+        startActivity(intent);
     }
 
     public void swipeListViewTutorial(View view){

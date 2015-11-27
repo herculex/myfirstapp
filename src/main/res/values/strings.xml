@@ -15,5 +15,6 @@
     <string name="title_activity_list_contact">ListContactActivity</string>
     <string name="title_activity_my_fours">MyFours</string>
     <string name="title_activity_fourinone">fourinone</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>

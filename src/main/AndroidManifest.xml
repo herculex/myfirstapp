@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sumugu.liubo.myfirstapp" >
+    package="com.sumugu.liubo.myfirstapp">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
@@ -8,10 +8,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MyActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,42 +22,39 @@
             android:name=".DisplayMessageActivity"
             android:label="@string/title_activity_display_message"
             android:parentActivityName=".MyActivity"
-            android:theme="@style/Theme.AppCompat.Dialog" >
+            android:theme="@style/Theme.AppCompat.Dialog">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MyActivity" />
         </activity>
         <activity
             android:name=".SwipeActivity"
-            android:label="@string/title_activity_swipe" >
-        </activity>
+            android:label="@string/title_activity_swipe"></activity>
         <activity
             android:name=".ListViewExample"
-            android:label="@string/title_activity_list_view_example" >
-        </activity>
+            android:label="@string/title_activity_list_view_example"></activity>
         <activity
             android:name=".MySwipes"
-            android:label="@string/title_activity_my_swipes" >
-        </activity>
+            android:label="@string/title_activity_my_swipes"></activity>
         <activity
             android:name=".ListContactActivity"
-            android:label="@string/title_activity_list_contact" >
-        </activity>
+            android:label="@string/title_activity_list_contact"></activity>
         <activity
             android:name=".MyFours"
             android:label="@string/title_activity_my_fours"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".fourinone"
             android:label="@string/title_activity_fourinone"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".swipelistviewtutorial.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".pulllistview.Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
