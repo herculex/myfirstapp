@@ -55,6 +55,9 @@ public class Main2Activity extends AppCompatActivity {
         listView.setOnTouchListener(new View.OnTouchListener() {
 
             float mDownY=0;
+            int currentChildTop=0;
+            int currentChildAt=0;
+            int childHeight=0;
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -62,7 +65,11 @@ public class Main2Activity extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         mDownY = event.getY();
-                        Log.d(TAG,"mDownY="+String.valueOf(mDownY));
+                        currentChildTop=Math.abs(listView.getChildAt(0).getTop());
+                        currentChildAt=listView.getFirstVisiblePosition();
+                        childHeight = listView.getChildAt(0).getHeight();
+
+                        Log.d(TAG,"mDownY="+String.valueOf(mDownY)+";firstChildAt="+String.valueOf(currentChildTop));
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         v.setTranslationY(0);
@@ -78,7 +85,9 @@ public class Main2Activity extends AppCompatActivity {
 
                         if(deltaY>0 && (listView.getFirstVisiblePosition() == listView.getChildAt(0).getTop()))
                         {
-                            v.setTranslationY(deltaY);
+                            float newDetalY = deltaY-currentChildAt*childHeight-currentChildTop;
+                            v.setTranslationY(newDetalY);
+                            Log.d(TAG,"newDeltaY="+String.valueOf(newDetalY));
                         }
                         else {
                            return false;    //listview 不能filing了
