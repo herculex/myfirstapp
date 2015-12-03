@@ -55,28 +55,24 @@ public class Main2Activity extends AppCompatActivity {
         listView.setOnTouchListener(new View.OnTouchListener() {
 
             float mDownY=0;
-            int currentChildTop=0;
-            int currentChildAt=0;
-            int childHeight=0;
+            float deltaY2=0;
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        mDownY = event.getY();
-                        currentChildTop=Math.abs(listView.getChildAt(0).getTop());
-                        currentChildAt=listView.getFirstVisiblePosition();
-                        childHeight = listView.getChildAt(0).getHeight();
 
-                        Log.d(TAG,"mDownY="+String.valueOf(mDownY)+";firstChildAt="+String.valueOf(currentChildTop));
+                        mDownY = event.getY();
+                        deltaY2=0;
+
+                        Log.d(TAG,"mDownY="+String.valueOf(mDownY)+";firstChildAt="+String.valueOf(listView.getFirstVisiblePosition()));
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         v.setTranslationY(0);
                         break;
                     case MotionEvent.ACTION_MOVE:
                     {
-
                         float mEndY = event.getY()+v.getTranslationY();
                         float deltaY = mEndY-mDownY;
                         Log.d(TAG,"deltaY="+String.valueOf(deltaY));
@@ -85,12 +81,13 @@ public class Main2Activity extends AppCompatActivity {
 
                         if(deltaY>0 && (listView.getFirstVisiblePosition() == listView.getChildAt(0).getTop()))
                         {
-                            float newDetalY = deltaY-currentChildAt*childHeight-currentChildTop;
+                            float newDetalY = deltaY-deltaY2;
                             v.setTranslationY(newDetalY);
                             Log.d(TAG,"newDeltaY="+String.valueOf(newDetalY));
                         }
                         else {
-                           return false;    //listview 不能filing了
+                            deltaY2=deltaY;     //保存listview上到顶之前滑动的距离
+                            return false;       //listview 不能filing了
                         }
 
                         break;
