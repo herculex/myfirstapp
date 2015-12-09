@@ -13,20 +13,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.sumugu.liubo.myfirstapp.Cheeses;
+import com.sumugu.liubo.myfirstapp.DisplayUtils;
 import com.sumugu.liubo.myfirstapp.R;
 
 import java.util.ArrayList;
 
 public class Main2Activity extends AppCompatActivity {
 
-    LinearLayout container;
+    FrameLayout container;
     TextView mTextView;
     int mMaxDown=200;
+    boolean editShowAll=false;
 
     final String TAG=Main2Activity.class.getSimpleName();
     @Override
@@ -45,9 +48,12 @@ public class Main2Activity extends AppCompatActivity {
 
         //my codes start here
 
-        container = (LinearLayout)findViewById(R.id.main2_container);
+        container = (FrameLayout)findViewById(R.id.main2_container);
         LayoutTransition transition = container.getLayoutTransition();
         transition.enableTransitionType(LayoutTransition.CHANGING);
+
+        mTextView = (TextView)findViewById(R.id.edit_message);
+        mTextView.setBackgroundColor(DisplayUtils.randomColor());
 
         //int datas
         final ArrayList<String> cheeseList = new ArrayList<String>();
@@ -78,43 +84,41 @@ public class Main2Activity extends AppCompatActivity {
                         mDownY = event.getY();
                         deltaY2 = 0;
 
+                        if (v.getTranslationY() == mTextView.getHeight())
+                            editShowAll = true;
+                        else
+                            editShowAll = false;
+
+
                         Log.d(TAG, "mDownY=" + String.valueOf(mDownY) + ";firstChildAt=" + String.valueOf(listView.getFirstVisiblePosition()));
-                        Log.d(TAG,"listTrans="+String.valueOf(v.getTranslationY()));
+                        Log.d(TAG, "listTrans=" + String.valueOf(v.getTranslationY()));
                         break;
                     case MotionEvent.ACTION_CANCEL:
                         v.setTranslationY(0);
                         break;
                     case MotionEvent.ACTION_MOVE: {
+
                         float mEndY = event.getY() + v.getTranslationY();
                         float deltaY = mEndY - mDownY;
                         Log.d(TAG, "deltaY=" + String.valueOf(deltaY));
 
                         float deltaAbs = Math.abs(deltaY);
+                        //
 
                         if (deltaY > 0 && (listView.getFirstVisiblePosition() == listView.getChildAt(0).getTop())) {
                             float newDetalY = deltaY - deltaY2;
-                            if (newDetalY > mMaxDown) {
 
-                                if (null == findViewById(R.id.edit_message)) {
-                                    mTextView = new EditText(Main2Activity.this);
-                                    mTextView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 150));
-                                    mTextView.setId(R.id.edit_message);
-                                    mTextView.setHint("输入内容吧！");
-                                    int red = (int) (Math.random() * 128 + 127);
-                                    int green = (int) (Math.random() * 128 + 127);
-                                    int blue = (int) (Math.random() * 128 + 127);
-                                    int color = 0xff << 24 | (red << 16) |
-                                            (green << 8) | blue;
-                                    mTextView.setBackgroundColor(color);
-                                    container.addView(mTextView, 0);
-                                }
-                                newDetalY=mMaxDown;
+
+                            if (v.getTranslationY() > mTextView.getHeight()) {
+                                mTextView.setTranslationY(newDetalY - mTextView.getHeight());
+                            } else {
+                                float alpha = newDetalY / mTextView.getHeight();
+                                mTextView.setAlpha(alpha >= 1 ? 1 : alpha);
                             }
-                            v.setTranslationY(newDetalY);
-                            if (null != mTextView)
-                                mTextView.setTranslationY(newDetalY);
 
-                            Log.d(TAG, "newDeltaY=" + String.valueOf(newDetalY) + "listTop=" + String.valueOf(listView.getTop()));
+                            v.setTranslationY(newDetalY);
+
+                            Log.d(TAG, "newDeltaY=" + String.valueOf(newDetalY) + "listTop=" + String.valueOf(v.getTop()));
                         } else {
                             deltaY2 = deltaY;     //保存listview上到顶之前滑动的距离
                             return false;       //listview 不能filing了
@@ -123,10 +127,17 @@ public class Main2Activity extends AppCompatActivity {
                         break;
                     }
                     case MotionEvent.ACTION_UP: {
-                        if (null != mTextView) {
+                        if (v.getTranslationY() >= mTextView.getHeight()) {
+                            editShowAll = true;
                             mTextView.setTranslationY(0);
+                            mTextView.setAlpha(1);
+                            v.setTranslationY(mTextView.getHeight());
+                        } else {
+                            editShowAll = false;
+                            mTextView.setAlpha(0);
+                            mTextView.setTranslationY(0);
+                            v.setTranslationY(0);
                         }
-                        v.setTranslationY(0);
                         break;
                     }
 
