@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
     final int SWIPE_DURATION=250;  //needed for velocity(加速) implementation
     final int MOVE_DURATION=150;
 
+    float mDownY;
+    float deltaY2;
+
     HashMap<Long,Integer> mItemIdTopMap = new HashMap<Long,Integer>();
 
     @Override
@@ -70,6 +73,110 @@ public class MainActivity extends AppCompatActivity {
         lv = (ListView)findViewById(R.id.list_view);
         StringAdapter adapter = new StringAdapter(MainActivity.this,arrayList,mTouchListener);
         lv.setAdapter(adapter);
+
+        //touchlistener for listview adapter
+//        lv.setOnTouchListener(new View.OnTouchListener() {
+//
+//            float mDownY = 0;
+//            float deltaY2 = 0;
+//
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//
+//                        mDownY = event.getY();
+//                        deltaY2 = 0;
+//
+//                        break;
+//                    case MotionEvent.ACTION_CANCEL:
+//                        v.setTranslationY(0);
+//                        break;
+//                    case MotionEvent.ACTION_MOVE: {
+//
+//                        float mEndY = event.getY() + v.getTranslationY();
+//                        float deltaY = mEndY - mDownY;
+//
+//                        float deltaAbs = Math.abs(deltaY);
+//                        //
+//
+//                        if (deltaY > 0 && (lv.getFirstVisiblePosition() == lv.getChildAt(0).getTop())) {
+//                            float newDetalY = deltaY - deltaY2;
+//
+//                            v.setTranslationY(newDetalY);
+//
+//                        } else {
+//                            deltaY2 = deltaY;     //保存listview上到顶之前滑动的距离
+//                            return false;       //listview 不能filing了
+//                        }
+//
+//                        break;
+//                    }
+//                    case MotionEvent.ACTION_UP: {
+//                            v.setTranslationY(0);
+//                        break;
+//                    }
+//
+//                }
+//                return true;
+//            }
+//        });
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if(ev.getAction()==MotionEvent.ACTION_DOWN)
+        {
+            Log.d("_sumugu2","activity.dispatchtouchevent");
+        }
+        if(getWindow().superDispatchTouchEvent(ev)){
+            return true;
+        }
+        return onTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+
+                        mDownY = event.getY();
+                        deltaY2 = 0;
+Log.d("_sumugu2","activity.down"+event.getY());
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        lv.setTranslationY(0);
+                        Log.d("sumugu2","activity.cancel");
+                        break;
+                    case MotionEvent.ACTION_MOVE: {
+Log.d("_sumugu2","activity.move"+event.getY());
+                        float mEndY = event.getY() + lv.getTranslationY();
+                        float deltaY = mEndY - mDownY;
+
+                        float deltaAbs = Math.abs(deltaY);
+                        //
+
+                        if (deltaY > 0 && (lv.getFirstVisiblePosition() == lv.getChildAt(0).getTop())) {
+                            float newDetalY = deltaY - deltaY2;
+
+                            lv.setTranslationY(newDetalY);
+
+                        } else {
+                            deltaY2 = deltaY;     //保存listview上到顶之前滑动的距离
+                            return false;       //listview 不能filing了
+                        }
+
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        Log.d("_sumugu2","activity.up"+event.getY());
+                            lv.setTranslationY(0);
+                        break;
+                    }
+
+                }
+                return true;
     }
 
     View.OnTouchListener mTouchListener = new View.OnTouchListener() {
@@ -167,6 +274,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
                 case MotionEvent.ACTION_UP:
                 {
+                    Log.d("UP_sumugu","x="+event.getX());
                     if(mSwiping)//if the user was swiping ,do not go to the  and just animate the view back to position
                     {
                         v.animate().setDuration(300).translationX(0).withEndAction(new Runnable() {

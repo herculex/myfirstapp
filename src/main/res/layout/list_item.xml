@@ -7,6 +7,6 @@
     android:layout_height="50dp"
     android:id="@+id/list_tv"
     android:background="#000000"
-    android:textColor="#FFFFFF"
+    android:textColor="#FF3B00"
     android:text="item some text"/>
 </LinearLayout>

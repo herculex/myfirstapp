@@ -1,27 +1,37 @@
 package com.sumugu.liubo.myfirstapp;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
+import com.sumugu.liubo.myfirstapp.customtouch.TouchInterceptActivity;
 import com.sumugu.liubo.myfirstapp.pulllistview.Main2Activity;
 import com.sumugu.liubo.myfirstapp.swipelistviewtutorial.MainActivity;
 
 
-public class MyActivity extends ActionBarActivity {
+public class MyActivity extends ActionBarActivity implements GestureDetector.OnGestureListener,GestureDetector.OnDoubleTapListener{
 
     public final static String EXTRA_MESSAGE = "com.sumugu.liubo.myfirstapp.MESSAGE";
 
+    private final static String TAG="Gestures.Detector";
+    private GestureDetector mDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
+        mDetector = new GestureDetector(this,this);
+        mDetector.setOnDoubleTapListener(this);
     }
 
     @Override
@@ -69,6 +79,11 @@ public class MyActivity extends ActionBarActivity {
         intent.putExtra(EXTRA_MESSAGE,editText.getTranslationX());
         startActivity(intent);
     }
+    public void TouchIntercept(View view)
+    {
+        Intent intent=new Intent(this, TouchInterceptActivity.class);
+        startActivity(intent);
+    }
 
     public void openSwipedemo(View view)
     {
@@ -97,7 +112,75 @@ public class MyActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void translationY(View view)
+    {
+        ((Button)view).setText(String.valueOf(view.getTranslationY()));
+        view.setTranslationY(200);
+        view.animate().translationY(0).setDuration(1000);
+
+    }
+
     public void openSearch()
     {}
     public void openSettings(){}
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        mDetector.onTouchEvent(event);
+
+        return super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+        Log.d(TAG,"onDown:"+e.toString());
+        return true;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+        Log.d(TAG,"onShowPress:"+e.toString());
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        Log.d(TAG,"onSingleTapUp:"+e.toString());
+        return true;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        Log.d(TAG,"onScroll:"+e1.toString()+e2.toString());
+        return true;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+        Log.d(TAG,"onLongPress:"+e.toString());
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        Log.d(TAG,"onFling:"+e1.toString()+e2.toString());
+        return true;
+    }
+
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent e) {
+        Log.d(TAG,"onSingleTapConfirmed:"+e.toString());
+        return true;
+    }
+
+    @Override
+    public boolean onDoubleTap(MotionEvent e) {
+        Log.d(TAG,"onDoubleTap:"+e.toString());
+        return true;
+    }
+
+    @Override
+    public boolean onDoubleTapEvent(MotionEvent e) {
+        Log.d(TAG,"onDoubleTapEvent:"+e.toString());
+        return true;
+    }
 }

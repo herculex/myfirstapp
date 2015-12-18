@@ -29,32 +29,33 @@
         </activity>
         <activity
             android:name=".SwipeActivity"
-            android:label="@string/title_activity_swipe"></activity>
+            android:label="@string/title_activity_swipe" />
         <activity
             android:name=".ListViewExample"
-            android:label="@string/title_activity_list_view_example"></activity>
+            android:label="@string/title_activity_list_view_example" />
         <activity
             android:name=".MySwipes"
-            android:label="@string/title_activity_my_swipes"></activity>
+            android:label="@string/title_activity_my_swipes" />
         <activity
             android:name=".ListContactActivity"
-            android:label="@string/title_activity_list_contact"></activity>
+            android:label="@string/title_activity_list_contact" />
         <activity
             android:name=".MyFours"
             android:label="@string/title_activity_my_fours"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".fourinone"
             android:label="@string/title_activity_fourinone"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".swipelistviewtutorial.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".pulllistview.Main2Activity"
             android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".customtouch.TouchInterceptActivity"></activity>
     </application>
 
 </manifest>
