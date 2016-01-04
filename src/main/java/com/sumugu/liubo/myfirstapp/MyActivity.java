@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.sumugu.liubo.myfirstapp.customtouch.TouchInterceptActivity;
+import com.sumugu.liubo.myfirstapp.mytouch.MyTouch;
 import com.sumugu.liubo.myfirstapp.pulllistview.Main2Activity;
 import com.sumugu.liubo.myfirstapp.swipelistviewtutorial.MainActivity;
 
@@ -60,6 +61,10 @@ public class MyActivity extends ActionBarActivity implements GestureDetector.OnG
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+    public void openMyTouch(View view)
+    {
+        startActivity(new Intent(this, MyTouch.class));
     }
     public void openPullListView(View view){
         Intent intent = new Intent(this, Main2Activity.class);

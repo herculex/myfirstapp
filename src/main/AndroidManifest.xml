@@ -55,7 +55,8 @@
             android:name=".pulllistview.Main2Activity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".customtouch.TouchInterceptActivity"></activity>
+        <activity android:name=".customtouch.TouchInterceptActivity" />
+        <activity android:name=".mytouch.MyTouch"></activity>
     </application>
 
 </manifest>

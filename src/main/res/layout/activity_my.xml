@@ -11,6 +11,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="openMyTouch"
+        android:text="MyTouch"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:onClick="TouchIntercept"
         android:text="TouchIntercept"/>
     <Button
