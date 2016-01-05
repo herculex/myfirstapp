@@ -26,7 +26,7 @@ public class MyTouch extends AppCompatActivity implements GestureDetector.OnGest
 
     RelativeLayout container_main;
     ArrayList<String> cheeseList;
-    ListView mListView;
+    MyListView mListView;
     ArrayAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class MyTouch extends AppCompatActivity implements GestureDetector.OnGest
         }
 
         //set listview adapter
-        mListView = (ListView)findViewById(R.id.list_view);
+        mListView = (MyListView)findViewById(R.id.list_view);
         mAdapter = new ArrayAdapter(this,R.layout.list_item,R.id.list_tv,cheeseList);
         mListView.setAdapter(mAdapter);
         //
@@ -56,21 +56,29 @@ public class MyTouch extends AppCompatActivity implements GestureDetector.OnGest
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        mGestureDetector.onTouchEvent(event);
+        Log.d(TAG,"myTouch_onTouchEvent");
 
-        return super.onTouchEvent(event);
+//        switch (event.getActionMasked())
+//        {
+//            case MotionEvent.ACTION_DOWN:
+//                Log.d(TAG,"AT____TextView__DOWN");
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//                Log.d(TAG,"AT____TextView__MOVE");
+//                break;
+//            case MotionEvent.ACTION_CANCEL:
+//                Log.d(TAG,"AT____TextView__CANCEL");
+//                break;
+//            case MotionEvent.ACTION_UP:
+//                Log.d(TAG,"AT____TextView__UP");
+//                break;
+//            default:
+//                return false;
+//        }
+//        return true;
+        return mGestureDetector.onTouchEvent(event);
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if(mListView.getFirstVisiblePosition()== mListView.getChildAt(0).getTop()) {
-            Log.d(TAG,"firstVisible ACT");
-            onTouchEvent(ev);
-            return true;
-        }
-        else
-            return super.dispatchTouchEvent(ev);
-    }
 
     @Override
     public boolean onSingleTapConfirmed(MotionEvent e) {
@@ -129,30 +137,17 @@ public class MyTouch extends AppCompatActivity implements GestureDetector.OnGest
     {
         final static String TAG="sumugu_MyTouchGesture";
 
-        @Override
-        public boolean onDown(MotionEvent e) {
-            Log.d(TAG,"onDonw:"+e.toString());
-            return true;
-        }
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            Log.d(TAG, "onScroll:y=" + String.valueOf(distanceY) + ":x=" + String.valueOf(distanceX));
-            if(distanceY<0)
-            {
-                if(mListView.getFirstVisiblePosition()==mListView.getChildAt(0).getTop())
-                {
-                    mListView.setTranslationY(mListView.getTranslationY()-distanceY);
+            Log.d(TAG, "Let ME Move the ListView ,onScroll:y=" + String.valueOf(distanceY) + ":x=" + String.valueOf(distanceX));
 
-
-                }
-            }
             return true;
         }
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            Log.d(TAG,"onFling:"+e1.toString()+e2.toString()+":"+String.valueOf(velocityX)+":"+String.valueOf(velocityY));
+            Log.d(TAG,"Let ME fling the ListView!_________");
             return true;
         }
     }
