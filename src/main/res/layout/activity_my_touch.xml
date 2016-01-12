@@ -12,5 +12,6 @@
     <com.sumugu.liubo.myfirstapp.mytouch.MyListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/list_view"></com.sumugu.liubo.myfirstapp.mytouch.MyListView>
+        android:id="@+id/list_view">
+    </com.sumugu.liubo.myfirstapp.mytouch.MyListView>
 </RelativeLayout>

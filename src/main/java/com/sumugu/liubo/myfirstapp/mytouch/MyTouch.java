@@ -6,7 +6,11 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.OverScroller;
 import android.widget.RelativeLayout;
@@ -52,6 +56,23 @@ public class MyTouch extends AppCompatActivity implements GestureDetector.OnGest
         mGestureDetector = new GestureDetector(this,new MyTouchGestureListener());
 //        mGestureDetector.setOnDoubleTapListener(this);
 //        mGestureDetector.setIsLongpressEnabled(true);
+
+        mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mListView.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
+                EditText editText = (EditText)view.findViewById(R.id.list_tv);
+                editText.requestFocus();
+                Log.d(TAG,"req____after_____");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                mListView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+                Log.d(TAG,"Rq_______before______");
+
+            }
+        });
     }
 
     @Override

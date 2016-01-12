@@ -7,12 +7,13 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
  * Created by liubo on 16/1/5.
  */
-public class MyTextView extends TextView{
+public class MyTextView extends EditText{
     final static String TAG="sumugu_MyTextView";
     GestureDetector mDetector;
     public MyTextView(Context context) {

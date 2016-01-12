@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 /**
