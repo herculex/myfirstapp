@@ -60,6 +60,7 @@ public class MyTextView extends EditText{
                 break;
             default:
                 return false;
+
         }
         return true;
     }
