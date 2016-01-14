@@ -8,5 +8,7 @@
     android:id="@+id/list_tv"
     android:background="#000000"
     android:textColor="#FF3B00"
-    android:text="item some text"/>
+    android:text="item some text"
+    android:imeOptions="actionDone"
+    android:inputType="text"/>
 </LinearLayout>

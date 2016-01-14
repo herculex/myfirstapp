@@ -56,7 +56,8 @@
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".customtouch.TouchInterceptActivity" />
-        <activity android:name=".mytouch.MyTouch"></activity>
+        <activity android:name=".mytouch.MyTouch"
+            android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>

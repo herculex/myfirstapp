@@ -1,19 +1,26 @@
 package com.sumugu.liubo.myfirstapp.mytouch;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.OverScroller;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.sumugu.liubo.myfirstapp.Cheeses;
 import com.sumugu.liubo.myfirstapp.R;
@@ -46,7 +53,7 @@ public class MyTouch extends AppCompatActivity implements GestureDetector.OnGest
 
         //set listview adapter
         mListView = (MyListView)findViewById(R.id.list_view);
-        mAdapter = new ArrayAdapter(this,R.layout.list_item,R.id.list_tv,cheeseList);
+        mAdapter = new MyAdapter(this,R.layout.list_item,R.id.list_tv,cheeseList,mTouchListener);
         mListView.setAdapter(mAdapter);
         //
         //find container
@@ -57,22 +64,71 @@ public class MyTouch extends AppCompatActivity implements GestureDetector.OnGest
 //        mGestureDetector.setOnDoubleTapListener(this);
 //        mGestureDetector.setIsLongpressEnabled(true);
 
-        mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mListView.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
-                EditText editText = (EditText)view.findViewById(R.id.list_tv);
-                editText.requestFocus();
-                Log.d(TAG,"req____after_____");
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                mListView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
-                Log.d(TAG,"Rq_______before______");
+    }
+    private View.OnTouchListener mTouchListener = new View.OnTouchListener(){
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            Log.d(TAG,"listITEM_________ontouching");
+            return true;
+        }
+    };
+    public class MyAdapter extends ArrayAdapter<String> {
+
+        View.OnTouchListener mTouchListener;
+
+        public MyAdapter(Context context,int layout,int textViewResourceId,ArrayList source,View.OnTouchListener listener)
+        {
+            super(context, layout,textViewResourceId,source);
+//            mTouchListener = listener;
+        }
+
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = super.getView(position, convertView, parent);
+            if (view != convertView) {
+                // Add touch listener to every new view to track swipe motion
+//                view.setOnTouchListener(mTouchListener);
+
+                final EditText editText = (EditText)view.findViewById(R.id.list_tv);
+                editText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+                editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if(EditorInfo.IME_ACTION_DONE == actionId)
+                        {
+                            Log.d(TAG, "press the action done!");
+                            mListView.requestFocus();
+
+                            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+                                    .hideSoftInputFromWindow(editText.getWindowToken(), 0);
+
+                            return true;
+                        }
+                            return false;
+                    }
+                });
 
             }
-        });
+            return view;
+        }
     }
 
     @Override
