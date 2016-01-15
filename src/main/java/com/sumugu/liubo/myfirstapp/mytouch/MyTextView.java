@@ -5,8 +5,10 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -28,41 +30,54 @@ public class MyTextView extends EditText{
 
         mDetector=new GestureDetector(context,new MyGesture());
     }
+    public MyTextView(Context context,AttributeSet attributeSet,int defStyleAttr)
+    {
+        super(context,attributeSet,defStyleAttr);
+        mDetector=new GestureDetector(context,new MyGesture());
+
+    }
+
+    @Override
+    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+        Log.d(TAG,"write down your keycode:"+keyCode);
+        if(keyCode==KeyEvent.KEYCODE_BACK)
+        {
+            Log.d(TAG, "you press the backkey");
+            if(isFocused())
+                clearFocus();
+
+        }
+        return super.onKeyPreIme(keyCode, event);
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-//        switch (event.getActionMasked())
-//        {
-//            case MotionEvent.ACTION_MOVE:
-//                return true;
-//        }
-
-//        return super.onTouchEvent(event);
 
         Log.d(TAG,"MyTextView,onTouchEvent");
+        return super.onTouchEvent(event);
 
 //        return mDetector.onTouchEvent(event);
 
-        switch (event.getActionMasked())
-        {
-            case MotionEvent.ACTION_DOWN:
-                Log.d(TAG,getText()+"____TextView__DOWN");
-                break;
-            case MotionEvent.ACTION_MOVE:
-                Log.d(TAG,getText()+"____TextView__MOVE");
-//                getParent().requestDisallowInterceptTouchEvent(true);
-                break;
-            case MotionEvent.ACTION_CANCEL:
-                Log.d(TAG,getText()+"____TextView__CANCEL");
-                break;
-            case MotionEvent.ACTION_UP:
-                Log.d(TAG,getText()+"____TextView__UP");
-                break;
-            default:
-                return false;
-
-        }
-        return true;
+//        switch (event.getActionMasked())
+//        {
+//            case MotionEvent.ACTION_DOWN:
+//                Log.d(TAG,getText()+"____TextView__DOWN");
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//                Log.d(TAG,getText()+"____TextView__MOVE");
+////                getParent().requestDisallowInterceptTouchEvent(true);
+//                break;
+//            case MotionEvent.ACTION_CANCEL:
+//                Log.d(TAG,getText()+"____TextView__CANCEL");
+//                break;
+//            case MotionEvent.ACTION_UP:
+//                Log.d(TAG,getText()+"____TextView__UP");
+//                break;
+//            default:
+//                return false;
+//
+//        }
+//        return true;
     }
 
 

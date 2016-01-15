@@ -112,6 +112,7 @@ public class MyTouch extends AppCompatActivity implements GestureDetector.OnGest
                 editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                     @Override
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        Log.d(TAG,"press what "+String.valueOf(actionId));
                         if(EditorInfo.IME_ACTION_DONE == actionId)
                         {
                             Log.d(TAG, "press the action done!");
@@ -122,6 +123,7 @@ public class MyTouch extends AppCompatActivity implements GestureDetector.OnGest
 
                             return true;
                         }
+
                             return false;
                     }
                 });
