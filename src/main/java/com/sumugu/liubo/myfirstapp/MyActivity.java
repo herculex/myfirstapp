@@ -1,17 +1,23 @@
 package com.sumugu.liubo.myfirstapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.transition.Visibility;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.sumugu.liubo.myfirstapp.customtouch.TouchInterceptActivity;
 import com.sumugu.liubo.myfirstapp.mytouch.MyTouch;
@@ -33,6 +39,48 @@ public class MyActivity extends ActionBarActivity implements GestureDetector.OnG
 
         mDetector = new GestureDetector(this,this);
         mDetector.setOnDoubleTapListener(this);
+
+        final TextView textView = (TextView)findViewById(R.id.view_message);
+        final EditText editText = (EditText)findViewById(R.id.edit_message);
+        Button button = (Button)findViewById(R.id.ok_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editText.setVisibility(View.GONE);
+                textView.setVisibility(View.VISIBLE);
+                textView.requestFocus();
+            }
+        });
+
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textView.setVisibility(View.GONE);
+
+                editText.setVisibility(View.VISIBLE);
+                editText.requestFocus();
+                editText.setSelection(editText.getText().length());
+                InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                mgr.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
     }
 
     @Override

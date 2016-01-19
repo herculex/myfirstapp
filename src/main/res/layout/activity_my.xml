@@ -33,13 +33,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="translationY"/>
-    <EditText
-        android:id="@+id/edit_message"
-        android:hint="@string/edit_message"
-        android:layout_weight="1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,14 +49,29 @@
         android:onClick="openListViewSwipeDemo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <Button
-        android:text="Three Demos"
-        android:onClick="openThreeDemos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="openFourInOne"
-        android:text="New_Four_In_One"/>
+        android:id="@+id/container_editor"
+        android:orientation="vertical">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:id="@+id/ok_button"/>
+        <EditText
+            android:id="@+id/edit_message"
+            android:text="click to show edit message."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_message"
+            android:text="click to show edit message."
+            android:visibility="visible"/>
+    </LinearLayout>
+
+
 </LinearLayout>
