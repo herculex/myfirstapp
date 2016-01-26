@@ -1,6 +1,9 @@
 package com.sumugu.liubo.myfirstapp.mytouch;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Camera;
+import android.graphics.Matrix;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,6 +20,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.OverScroller;
 import android.widget.RelativeLayout;
@@ -35,7 +40,7 @@ public class MyTouch extends AppCompatActivity implements GestureDetector.OnGest
     OverScroller mOverScroller;
     VelocityTracker mVelocityTracker;
 
-    RelativeLayout container_main;
+    LinearLayout container_main;
     ArrayList<String> cheeseList;
     MyListView mListView;
     ArrayAdapter mAdapter;
@@ -57,7 +62,7 @@ public class MyTouch extends AppCompatActivity implements GestureDetector.OnGest
         mListView.setAdapter(mAdapter);
         //
         //find container
-        container_main = (RelativeLayout)findViewById(R.id.container_main);
+        container_main = (LinearLayout)findViewById(R.id.container_main);
 
 //        mGestureDetector = new GestureDetector(this,this);
         mGestureDetector = new GestureDetector(this,new MyTouchGestureListener());
@@ -228,6 +233,47 @@ public class MyTouch extends AppCompatActivity implements GestureDetector.OnGest
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             Log.d(TAG,"Let ME fling the ListView!_________");
             return true;
+        }
+    }
+
+    int count =1;
+    public void addItemToList(View view) {
+        SkewableTextView skewableTextView = (SkewableTextView) findViewById(R.id.edit_new_message);
+        ImageView imageView = (ImageView) findViewById(R.id.image_new_message);
+
+//        float[] src = new float[]{
+//                0,0,
+//                skewableTextView.getWidth(),0,
+//                skewableTextView.getWidth(),skewableTextView.getHeight(),
+//                0,skewableTextView.getHeight()
+//
+//        };
+//        float[] dst = new float[]{
+//                10,2,
+//                skewableTextView.getWidth()-10,0,
+//                skewableTextView.getWidth(),skewableTextView.getHeight(),
+//                0,skewableTextView.getHeight()
+//        };
+//        Matrix matrix = skewableTextView.getMatrix();
+//        matrix.setPolyToPoly(src,0,dst,0,src.length>>1);
+
+
+//
+        //根据一个view的尺寸创建bitmap
+//        Bitmap bp = Bitmap.createBitmap(skewableTextView.getWidth(), skewableTextView.getHeight(), Bitmap.Config.RGB_565);
+//        imageView.setImageBitmap(bp);
+        //
+
+        if (count < 100) {
+
+            skewableTextView.setVisibility(View.VISIBLE);
+            skewableTextView.setSkewX(count);
+            count=count+5;
+        }
+        else
+        {
+            skewableTextView.setVisibility(View.GONE);
+            count=1;
         }
     }
 }
