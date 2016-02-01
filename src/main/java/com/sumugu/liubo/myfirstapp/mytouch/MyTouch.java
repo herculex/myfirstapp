@@ -238,8 +238,8 @@ public class MyTouch extends AppCompatActivity implements GestureDetector.OnGest
 
     int count =1;
     public void addItemToList(View view) {
-        SkewableTextView skewableTextView = (SkewableTextView) findViewById(R.id.edit_new_message);
-        ImageView imageView = (ImageView) findViewById(R.id.image_new_message);
+//        SkewableTextView skewableTextView = (SkewableTextView) findViewById(R.id.edit_new_message);
+//        ImageView imageView = (ImageView) findViewById(R.id.image_new_message);
 
 //        float[] src = new float[]{
 //                0,0,
@@ -264,16 +264,27 @@ public class MyTouch extends AppCompatActivity implements GestureDetector.OnGest
 //        imageView.setImageBitmap(bp);
         //
 
-        if (count < 100) {
-
-            skewableTextView.setVisibility(View.VISIBLE);
-            skewableTextView.setSkewX(count);
-            count=count+5;
+//        if (count < 100) {
+//
+//            skewableTextView.setVisibility(View.VISIBLE);
+//            skewableTextView.setSkewX(count);
+//            count=count+5;
+//        }
+//        else
+//        {
+//            skewableTextView.setVisibility(View.GONE);
+//            count=1;
+//        }
+        if(count<100)
+        {
+            SkewableTextView myView = (SkewableTextView)findViewById(R.id.myView);
+            myView.setRotationX(count);
+            count=count+10;
+            Log.d(TAG,"top="+myView.getTop()+";bottom="+myView.getBottom());
         }
         else
         {
-            skewableTextView.setVisibility(View.GONE);
-            count=1;
+            count=0;
         }
     }
 }
