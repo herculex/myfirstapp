@@ -1,5 +1,7 @@
 package com.sumugu.liubo.myfirstapp;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.nfc.Tag;
@@ -163,6 +165,18 @@ public class MyActivity extends ActionBarActivity implements GestureDetector.OnG
     {
         Intent intent = new Intent(this,fourinone.class);
         startActivity(intent);
+    }
+    public void openDateDialog(View view)
+    {
+        DatePickerDialog dialog = new DatePickerDialog(this,null,2016,3,2);
+        dialog.show();
+    }
+    public void openTimeDialog(View view)
+    {
+        TimePickerDialog dialog = new TimePickerDialog(this,null,17,12,true);
+        dialog.show();
+
+
     }
 
     public void translationY(View view)
